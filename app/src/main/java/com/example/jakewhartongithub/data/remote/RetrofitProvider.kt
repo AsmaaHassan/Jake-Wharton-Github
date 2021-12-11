@@ -1,6 +1,6 @@
 package com.example.jakewhartongithub.data.remote
 
-import com.example.jakewhartongithub.utils.Constants.Companion.BASE_IMAGE_URL
+import com.example.jakewhartongithub.utils.Constants.Companion.BASE_URL
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,7 +14,7 @@ object RetrofitProvider {
     fun getInstance(): Retrofit {
         return Retrofit.Builder()
           .client(provideOkHttpClient(provideLoggingInterceptor()))
-            .baseUrl(BASE_IMAGE_URL)
+            .baseUrl(BASE_URL)
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

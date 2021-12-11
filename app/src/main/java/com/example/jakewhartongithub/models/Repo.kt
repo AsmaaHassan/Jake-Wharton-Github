@@ -1,9 +1,14 @@
 package com.example.jakewhartongithub.models
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
 import com.google.gson.annotations.SerializedName
 /**
  * Created by Asmaa Hassan
  */
+@Entity
 data class Repo(
 
 	@field:SerializedName("allow_forking")
@@ -43,8 +48,10 @@ data class Repo(
 	@field:SerializedName("svn_url")
 	val svnUrl: String? = null,
 
+
 	@field:SerializedName("id")
-	val id: Int? = null,
+	@PrimaryKey
+	val id: String,
 
 	@field:SerializedName("forks")
 	val forks: Int? = null,
@@ -67,7 +74,10 @@ data class Repo(
 	@field:SerializedName("ssh_url")
 	val sshUrl: String? = null,
 
+
 	@field:SerializedName("license")
+//	@TypeConverters(License::class)
+	@Embedded(prefix = "License")
 	val license: License? = null,
 
 	@field:SerializedName("full_name")
@@ -164,6 +174,8 @@ data class Repo(
 	val hasPages: Boolean? = null,
 
 	@field:SerializedName("owner")
+//	@TypeConverters(Owner::class)
+	@Embedded(prefix = "Owner")
 	val owner: Owner? = null,
 
 	@field:SerializedName("commits_url")
@@ -175,8 +187,8 @@ data class Repo(
 	@field:SerializedName("git_commits_url")
 	val gitCommitsUrl: String? = null,
 
-	@field:SerializedName("topics")
-	val topics: List<Any?>? = null,
+//	@field:SerializedName("topics")
+//	val topics: List<String?>? = null,
 
 	@field:SerializedName("blobs_url")
 	val blobsUrl: String? = null,
@@ -200,7 +212,7 @@ data class Repo(
 	val contentsUrl: String? = null,
 
 	@field:SerializedName("mirror_url")
-	val mirrorUrl: Any? = null,
+	val mirrorUrl: String? = null,
 
 	@field:SerializedName("milestones_url")
 	val milestonesUrl: String? = null,
@@ -239,6 +251,7 @@ data class Repo(
 	val forksCount: Int? = null
 )
 
+@Entity
 data class License(
 
 	@field:SerializedName("name")
@@ -251,12 +264,13 @@ data class License(
 	val key: String? = null,
 
 	@field:SerializedName("url")
-	val url: Any? = null,
+	val url: String? = null,
 
 	@field:SerializedName("node_id")
 	val nodeId: String? = null
 )
 
+@Entity
 data class Owner(
 
 	@field:SerializedName("gists_url")

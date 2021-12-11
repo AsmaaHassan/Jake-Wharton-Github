@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.jakewhartongithub.R
 import com.example.jakewhartongithub.ui.home.HomeFragment
+/**
+ * Created by Asmaa Hassan
+ */
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

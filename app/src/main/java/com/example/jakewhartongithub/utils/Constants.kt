@@ -4,7 +4,6 @@ package com.example.jakewhartongithub.utils
  */
 class Constants {
     companion object {
-        val project_name = "GITHUB_STARED"
-        val BASE_IMAGE_URL ="https://api.github.com/search/"
+        val BASE_URL ="https://api.github.com/"
     }
 }

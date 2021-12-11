@@ -3,25 +3,24 @@
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.example.jakewhartongithub.JakeWhortonApp
-import com.example.jakewhartongithub.data.remote.RemoteDataSource
-import com.example.jakewhartongithub.data.remote.RetrofitProvider
+import androidx.paging.*
+import com.example.jakewhartongithub.data.RepoRemoteMediator
+import com.example.jakewhartongithub.data.internal.RepoDatabase
+import com.example.jakewhartongithub.data.remote.ServiceApi
 import com.example.jakewhartongithub.models.Repo
 import kotlinx.coroutines.flow.Flow
-import org.kodein.di.*
+import retrofit2.Retrofit
  /**
   * Created by Asmaa Hassan
   */
-class ReposViewModel(ctx: Context) : ViewModel(), DIAware {
-    override val di by lazy { (ctx as JakeWhortonApp).di }
+class ReposViewModel(private val db:RepoDatabase,private val retrofit: Retrofit,ctx: Context) : ViewModel() {
 
-    val jakeWhortonRepos: Flow<PagingData<Repo>> = Pager(PagingConfig(pageSize = 6)) {
-        RemoteDataSource(RetrofitProvider.getInstance())
-    }.flow.cachedIn(viewModelScope)
+    @ExperimentalPagingApi
+    val jakeWhortonRepos: Flow<PagingData<Repo>> = Pager(
+        config = PagingConfig(pageSize = 15,enablePlaceholders = false),
+        pagingSourceFactory = {db.getRepoDao.getAllRepos()},
+        remoteMediator = RepoRemoteMediator(db,retrofit = retrofit)
+    ).flow.cachedIn(viewModelScope)
 }
 
 
